@@ -1,6 +1,6 @@
 const userModel = require("../models/userModel.js")
 const { hashPassword, comparedPassword } = require("../helpers/authHelper.js");
-const JWT = require("jsonwebtoken")
+const jwt = require("jsonwebtoken")
 
 const registerController = async (req, res) => {
     try {
@@ -79,7 +79,7 @@ const loginController = async (req, res) => {
         }
 
         //token
-        const token = await JWT.sign({ _id: user._id }, process.env.JWT_SECRET, { expiresIn: "7d" });
+        const token = await jwt.sign({ _id: user._id }, process.env.JWT_SECRET, { expiresIn: "7d" });
         res.status(200).send({
             success: true,
             message: "Login Successfully",
