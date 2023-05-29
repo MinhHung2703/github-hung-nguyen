@@ -11,16 +11,16 @@ const registerController = async (req, res) => {
             return res.send({ error: "Name is required" })
         }
         if (!email) {
-            return res.send({ error: " Email is required" })
+            return res.send({ message: " Email is required" })
         }
         if (!password) {
-            return res.send({ error: " Password is required" })
+            return res.send({ message: " Password is required" })
         }
         if (!phone) {
-            return res.send({ error: " Phone is required" })
+            return res.send({ message: " Phone is required" })
         }
         if (!address) {
-            return res.send({ error: " Address is required" })
+            return res.send({ message: " Address is required" })
         }
 
         //check user

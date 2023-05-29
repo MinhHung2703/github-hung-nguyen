@@ -4,6 +4,8 @@ const dotenv = require('dotenv')
 const morgan = require("morgan");
 const connectDB = require("./config/db.js");
 const authRoutes = require("./routes/authRoute.js")
+const cors = require('cors')
+
 //configure dotenv
 dotenv.config();
 
@@ -17,6 +19,7 @@ const app = epxpress();
 app.use(epxpress.json())
 app.use(morgan("dev"))
 app.use(cors())
+
 // routes
 app.use("/api/v1/auth", authRoutes);
 
