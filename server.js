@@ -4,6 +4,7 @@ const dotenv = require('dotenv')
 const morgan = require("morgan");
 const connectDB = require("./config/db.js");
 const authRoutes = require("./routes/authRoute.js")
+const userRoutes = require("./routes/userRoute.js")
 const cors = require('cors')
 
 //configure dotenv
