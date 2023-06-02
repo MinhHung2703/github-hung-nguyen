@@ -4,8 +4,8 @@ const dotenv = require('dotenv')
 const morgan = require("morgan");
 const connectDB = require("./config/db.js");
 const authRoutes = require("./routes/authRoute.js")
+const categoryRoutes = require("./routes/categoryRoute.js")
 const cors = require('cors')
-
 //configure dotenv
 dotenv.config();
 
@@ -22,6 +22,7 @@ app.use(cors())
 
 // routes
 app.use("/api/v1/auth", authRoutes);
+app.use("/api/v1/category", categoryRoutes)
 
 //rest api
 app.get("/", (req, res, next) => {
