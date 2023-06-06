@@ -154,6 +154,6 @@ const testController = async (req, res) => {
         console.log(error);
         res.send({ error });
     }
-};
+}
 
 module.exports = { registerController, loginController, testController, forgotPasswordController }
