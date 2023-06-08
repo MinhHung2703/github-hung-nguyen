@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import Layout from "./../../components/layout/Layout";
-import AdminMenu from "./../../components/layout/AdminMenu";
+import Layout from "./../../components/layout/Layout.js";
+import AdminMenu from "./../../components/layout/AdminMenu.js";
 import toast from "react-hot-toast";
 import axios from "axios";
-import CategoryForm from "../../components/Form/CategoryForm";
+import CategoryForm from "../../components/Form/CategoryForm.js";
 import { Modal } from "antd";
 const CreateCategory = () => {
     const [categories, setCategories] = useState([]);
