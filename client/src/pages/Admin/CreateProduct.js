@@ -3,8 +3,8 @@ import Layout from "./../../components/layout/Layout";
 import AdminMenu from "./../../components/layout/AdminMenu";
 import toast from "react-hot-toast";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 import { Select } from "antd";
+import { useNavigate } from "react-router-dom";
 const { Option } = Select;
 
 const CreateProduct = () => {
@@ -14,11 +14,11 @@ const CreateProduct = () => {
     const [description, setDescription] = useState("");
     const [price, setPrice] = useState("");
     const [category, setCategory] = useState("");
-    const [quantity, setQuantity] = useState("");
+    const [quality, setQuality] = useState("");
     const [shipping, setShipping] = useState("");
     const [photo, setPhoto] = useState("");
 
-    //get all category
+    // //get all category
     const getAllCategory = async () => {
         try {
             const { data } = await axios.get("/api/v1/category/get-category");
@@ -27,7 +27,7 @@ const CreateProduct = () => {
             }
         } catch (error) {
             console.log(error);
-            toast.error("Something wwent wrong in getting catgeory");
+            toast.error("Something went wrong in getting catgeory");
         }
     };
 
@@ -35,7 +35,7 @@ const CreateProduct = () => {
         getAllCategory();
     }, []);
 
-    //create product function
+    // //create product function
     const handleCreate = async (e) => {
         e.preventDefault();
         try {
@@ -43,7 +43,7 @@ const CreateProduct = () => {
             productData.append("name", name);
             productData.append("description", description);
             productData.append("price", price);
-            productData.append("quantity", quantity);
+            productData.append("quality", quality);
             productData.append("photo", photo);
             productData.append("category", category);
             const { data } = axios.post(
@@ -69,7 +69,7 @@ const CreateProduct = () => {
                     <div className="col-md-3">
                         <AdminMenu />
                     </div>
-                    <div className="col-md-9 m-5">
+                    <div className="col-md-9 p-5">
                         <h1>Create Product</h1>
                         <div className="m-1 w-75">
                             <Select
@@ -116,7 +116,7 @@ const CreateProduct = () => {
                                 <input
                                     type="text"
                                     value={name}
-                                    placeholder="write a name"
+                                    placeholder="name"
                                     className="form-control"
                                     onChange={(e) => setName(e.target.value)}
                                 />
@@ -125,7 +125,7 @@ const CreateProduct = () => {
                                 <textarea
                                     type="text"
                                     value={description}
-                                    placeholder="write a description"
+                                    placeholder="description"
                                     className="form-control"
                                     onChange={(e) => setDescription(e.target.value)}
                                 />
@@ -135,7 +135,7 @@ const CreateProduct = () => {
                                 <input
                                     type="number"
                                     value={price}
-                                    placeholder="write a Price"
+                                    placeholder="Price"
                                     className="form-control"
                                     onChange={(e) => setPrice(e.target.value)}
                                 />
@@ -143,10 +143,10 @@ const CreateProduct = () => {
                             <div className="mb-3">
                                 <input
                                     type="number"
-                                    value={quantity}
-                                    placeholder="write a quantity"
+                                    value={quality}
+                                    placeholder="quality"
                                     className="form-control"
-                                    onChange={(e) => setQuantity(e.target.value)}
+                                    onChange={(e) => setQuality(e.target.value)}
                                 />
                             </div>
                             <div className="mb-3">
