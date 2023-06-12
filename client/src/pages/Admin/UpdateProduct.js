@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import Layout from "./../../components/layout/Layout";
-import AdminMenu from "./../../components/layout/AdminMenu";
+import Layout from "../../components/Layout/Layout";
+import AdminMenu from "../../components/Layout/AdminMenu";
 import toast from "react-hot-toast";
 import axios from "axios";
 import { Select } from "antd";
@@ -15,7 +15,7 @@ const UpdateProduct = () => {
     const [description, setDescription] = useState("");
     const [price, setPrice] = useState("");
     const [category, setCategory] = useState("");
-    const [quality, setQuality] = useState("");
+    const [quantity, setQuantity] = useState("");
     const [shipping, setShipping] = useState("");
     const [photo, setPhoto] = useState("");
     const [id, setId] = useState("");
@@ -24,14 +24,14 @@ const UpdateProduct = () => {
     const getSingleProduct = async () => {
         try {
             const { data } = await axios.get(
-                `/api/v1/product/get-product/${params.slug}`
+                `http://localhost:8000/api/v1/product/get-product/${params.slug}`
             );
             setName(data.product.name);
             setId(data.product._id);
             setDescription(data.product.description);
             setPrice(data.product.price);
             setPrice(data.product.price);
-            setQuality(data.product.quality);
+            setQuantity(data.product.quantity);
             setShipping(data.product.shipping);
             setCategory(data.product.category._id);
         } catch (error) {
@@ -45,7 +45,7 @@ const UpdateProduct = () => {
     //get all category
     const getAllCategory = async () => {
         try {
-            const { data } = await axios.get("/api/v1/category/get-category");
+            const { data } = await axios.get("http://localhost:8000/api/v1/category/get-category");
             if (data?.success) {
                 setCategories(data?.category);
             }
@@ -67,11 +67,11 @@ const UpdateProduct = () => {
             productData.append("name", name);
             productData.append("description", description);
             productData.append("price", price);
-            productData.append("quality", quality);
+            productData.append("quantity", quantity);
             photo && productData.append("photo", photo);
             productData.append("category", category);
             const { data } = axios.put(
-                `/api/v1/product/update-product/${id}`,
+                `http://localhost:8000/api/v1/product/update-product/${id}`,
                 productData
             );
             if (data?.success) {
@@ -90,11 +90,10 @@ const UpdateProduct = () => {
     const handleDelete = async () => {
         try {
             let answer = window.prompt("Are You Sure want to delete this product ? ");
-            if (!answer) { return } else {
-                const { data } = await axios.delete(
-                    `/api/v1/product/delete-product/${id}`
-                )
-            };
+            if (!answer) return;
+            const { data } = await axios.delete(
+                `http://localhost:8000/api/v1/product/delete-product/${id}`
+            );
             toast.success("Product Deleted Successfully");
             navigate("/dashboard/admin/products");
         } catch (error) {
@@ -154,7 +153,7 @@ const UpdateProduct = () => {
                                 ) : (
                                     <div className="text-center">
                                         <img
-                                            src={`/api/v1/product/product-photo/${id}`}
+                                            src={`http://localhost:8000/api/v1/product/product-photo/${id}`}
                                             alt="product_photo"
                                             height={"200px"}
                                             className="img img-responsive"
@@ -193,10 +192,10 @@ const UpdateProduct = () => {
                             <div className="mb-3">
                                 <input
                                     type="number"
-                                    value={quality}
-                                    placeholder="write a quality"
+                                    value={quantity}
+                                    placeholder="write a quantity"
                                     className="form-control"
-                                    onChange={(e) => setQuality(e.target.value)}
+                                    onChange={(e) => setQuantity(e.target.value)}
                                 />
                             </div>
                             <div className="mb-3">
@@ -233,4 +232,4 @@ const UpdateProduct = () => {
     );
 };
 
-export default UpdateProduct
+export default UpdateProduct;

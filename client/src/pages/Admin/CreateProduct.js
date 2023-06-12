@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import Layout from "./../../components/layout/Layout";
-import AdminMenu from "./../../components/layout/AdminMenu";
+import Layout from "../../components/Layout/Layout";
+import AdminMenu from "../../components/Layout/AdminMenu";
 import toast from "react-hot-toast";
 import axios from "axios";
 import { Select } from "antd";
@@ -14,14 +14,14 @@ const CreateProduct = () => {
     const [description, setDescription] = useState("");
     const [price, setPrice] = useState("");
     const [category, setCategory] = useState("");
-    const [quality, setQuality] = useState("");
+    const [quantity, setQuantity] = useState("");
     const [shipping, setShipping] = useState("");
     const [photo, setPhoto] = useState("");
 
-    // //get all category
+    //get all category
     const getAllCategory = async () => {
         try {
-            const { data } = await axios.get("/api/v1/category/get-category");
+            const { data } = await axios.get("http://localhost:8000/api/v1/category/get-category");
             if (data?.success) {
                 setCategories(data?.category);
             }
@@ -35,7 +35,7 @@ const CreateProduct = () => {
         getAllCategory();
     }, []);
 
-    // //create product function
+    //create product function
     const handleCreate = async (e) => {
         e.preventDefault();
         try {
@@ -43,11 +43,11 @@ const CreateProduct = () => {
             productData.append("name", name);
             productData.append("description", description);
             productData.append("price", price);
-            productData.append("quality", quality);
+            productData.append("quantity", quantity);
             productData.append("photo", photo);
             productData.append("category", category);
             const { data } = axios.post(
-                "/api/v1/product/create-product",
+                "http://localhost:8000/api/v1/product/create-product",
                 productData
             );
             if (data?.success) {
@@ -69,7 +69,7 @@ const CreateProduct = () => {
                     <div className="col-md-3">
                         <AdminMenu />
                     </div>
-                    <div className="col-md-9 p-5">
+                    <div className="col-md-9">
                         <h1>Create Product</h1>
                         <div className="m-1 w-75">
                             <Select
@@ -116,7 +116,7 @@ const CreateProduct = () => {
                                 <input
                                     type="text"
                                     value={name}
-                                    placeholder="name"
+                                    placeholder="write a name"
                                     className="form-control"
                                     onChange={(e) => setName(e.target.value)}
                                 />
@@ -125,7 +125,7 @@ const CreateProduct = () => {
                                 <textarea
                                     type="text"
                                     value={description}
-                                    placeholder="description"
+                                    placeholder="write a description"
                                     className="form-control"
                                     onChange={(e) => setDescription(e.target.value)}
                                 />
@@ -135,7 +135,7 @@ const CreateProduct = () => {
                                 <input
                                     type="number"
                                     value={price}
-                                    placeholder="Price"
+                                    placeholder="write a Price"
                                     className="form-control"
                                     onChange={(e) => setPrice(e.target.value)}
                                 />
@@ -143,10 +143,10 @@ const CreateProduct = () => {
                             <div className="mb-3">
                                 <input
                                     type="number"
-                                    value={quality}
-                                    placeholder="quality"
+                                    value={quantity}
+                                    placeholder="write a quantity"
                                     className="form-control"
-                                    onChange={(e) => setQuality(e.target.value)}
+                                    onChange={(e) => setQuantity(e.target.value)}
                                 />
                             </div>
                             <div className="mb-3">
@@ -177,4 +177,4 @@ const CreateProduct = () => {
     );
 };
 
-export default CreateProduct
+export default CreateProduct;

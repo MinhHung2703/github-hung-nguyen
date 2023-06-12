@@ -19,7 +19,9 @@ const app = epxpress();
 //middlewares
 app.use(epxpress.json())
 app.use(morgan("dev"))
-app.use(cors())
+app.use(cors(
+    { origin: "*" }
+))
 
 // routes
 app.use("/api/v1/auth", authRoutes);

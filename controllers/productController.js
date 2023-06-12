@@ -3,7 +3,7 @@ const productModel = require("../models/productModel");
 const fs = require('fs')
 const createProductController = async (req, res) => {
     try {
-        const { name, description, price, category, quality, shipping } = req.fields;
+        const { name, description, price, category, quantity, shipping } = req.fields;
         const { photo } = req.files;
         //validation
         switch (true) {
@@ -15,10 +15,10 @@ const createProductController = async (req, res) => {
                 return res.status(500).send({ error: "Price is required" });
             case !category:
                 return res.status(500).send({ error: "Category is required" });
-            case !quality:
-                return res.status(500).send({ error: "Quality is required" });
+            case !quantity:
+                return res.status(500).send({ error: "Quantity is required" });
             case photo && photo.size > 1000000:
-                return res.status(500).send({ error: "{Photo is required and should be less then 1mb" });
+                return res.status(500).send({ error: "Photo is required and should be less then 1mb" });
         }
         const products = await productModel({ ...req.fields, slug: slugify(name) })
         if (photo) {
@@ -121,7 +121,7 @@ const deleteProductController = async (req, res) => {
 }
 const updateProductController = async (req, res) => {
     try {
-        const { name, description, price, category, quality, shipping } = req.fields;
+        const { name, description, price, category, quantity, shipping } = req.fields;
         const { photo } = req.files;
         //validation
         switch (true) {
@@ -133,8 +133,8 @@ const updateProductController = async (req, res) => {
                 return res.status(500).send({ error: "Price is Required" });
             case !category:
                 return res.status(500).send({ error: "Category is Required" });
-            case !quality:
-                return res.status(500).send({ error: "Quality is Required" });
+            case !quantity:
+                return res.status(500).send({ error: "quantity is Required" });
             case !photo && photo.size > 1000000:
                 return res.status(500).send({ error: "Photo is Required and should be less then 1mb" });
         }
