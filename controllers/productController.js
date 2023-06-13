@@ -182,7 +182,57 @@ const productFiltersController = async (req, res) => {
         });
     }
 }
+
+const productCountController = async (req, res) => {
+    try {
+        const total = await productModel.find({}).estimatedDocumentCount();
+        res.status(200).send({
+            success: true,
+            total,
+        })
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({
+            success: false,
+            message: "Error in product count",
+
+        })
+    }
+}
+
+//product list base on page
+const productListController = async (req, res) => {
+    try {
+        const perPage = 2;
+        const page = req.params.page ? req.params.page : 1;
+        const products = await productModel
+            .find({})
+            .select("-photo")
+            .skip((page - 1) * perPage)
+            .limit(perPage)
+            .sort({ createAt: -1 });
+        res.status(200).send({
+            success: true,
+            products
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({
+            success: false,
+            message: "Error in per page ctrl",
+            error
+        });
+    }
+}
+
 module.exports = {
-    createProductController, updateProductController, getProductController, getSingleProductController, productPhotoController, deleteProductController, productFiltersController,
-    // productCountController
+    createProductController,
+    updateProductController,
+    getProductController,
+    getSingleProductController,
+    productPhotoController,
+    deleteProductController,
+    productFiltersController,
+    productCountController,
+    productListController
 }
