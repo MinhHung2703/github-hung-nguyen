@@ -162,6 +162,7 @@ const updateProductController = async (req, res) => {
     }
 }
 
+// filters
 const productFiltersController = async (req, res) => {
     try {
         const { checked, radio } = req.body;
@@ -183,6 +184,7 @@ const productFiltersController = async (req, res) => {
     }
 }
 
+// Count product
 const productCountController = async (req, res) => {
     try {
         const total = await productModel.find({}).estimatedDocumentCount();
@@ -192,7 +194,7 @@ const productCountController = async (req, res) => {
         })
     } catch (error) {
         console.log(error);
-        res.status(500).send({
+        res.status(400).send({
             success: false,
             message: "Error in product count",
 
@@ -200,10 +202,10 @@ const productCountController = async (req, res) => {
     }
 }
 
-//product list base on page
+// product list base on page
 const productListController = async (req, res) => {
     try {
-        const perPage = 2;
+        const perPage = 6;
         const page = req.params.page ? req.params.page : 1;
         const products = await productModel
             .find({})
@@ -217,11 +219,33 @@ const productListController = async (req, res) => {
         });
     } catch (error) {
         console.log(error);
-        res.status(500).send({
+        res.status(400).send({
             success: false,
             message: "Error in per page ctrl",
             error
         });
+    }
+}
+
+// search product
+const searchProductController = async (req, res) => {
+    try {
+        const { keyword } = req.params;
+        const results = await productModel.find({
+            $or: [
+                { name: { $regex: keyword, $options: "i" } },
+                { description: { $regex: keyword, $options: "i " } }
+            ],
+        })
+            .select("-photo")
+        res.json(results);
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({
+            success: false,
+            message: "Error In Search",
+            error
+        })
     }
 }
 
@@ -234,5 +258,6 @@ module.exports = {
     deleteProductController,
     productFiltersController,
     productCountController,
-    productListController
+    productListController,
+    searchProductController
 }
