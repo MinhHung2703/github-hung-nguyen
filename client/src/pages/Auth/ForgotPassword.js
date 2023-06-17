@@ -12,6 +12,7 @@ const ForgotPassword = () => {
 
     const navigate = useNavigate();
 
+    //form function
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -78,4 +79,4 @@ const ForgotPassword = () => {
     )
 }
 
-export default ForgotPassword
+export default ForgotPassword  

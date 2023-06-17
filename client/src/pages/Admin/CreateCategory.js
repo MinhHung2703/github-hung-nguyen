@@ -68,7 +68,6 @@ const CreateCategory = () => {
             console.log(error);
         }
     };
-
     //delete category
     const handleDelete = async (pId) => {
         try {

@@ -4,13 +4,14 @@ import toast from "react-hot-toast";
 import { useAuth } from "../../context/auth";
 import SearchInput from "../Form/SearchInput";
 import useCategory from "../../hooks/useCategory";
-// import {useCart} from "../../hooks/useCategory";
+//import { useCart } from "../../context/cart";
 // import { Badge } from "antd";
 
 
 const Header = () => {
     const [auth, setAuth] = useAuth();
     const categories = useCategory();
+    // const [cart]=useCart();
     const handleLogout = () => {
         setAuth({
             ...auth,
@@ -64,7 +65,7 @@ const Header = () => {
                                         <li>
                                             <Link
                                                 className="dropdown-item"
-                                                to={`htpp://localhost:8000/api/v1/category/${c.slug}`}
+                                                to={`http://localhost:8000/api/v1/category/${c.slug}`}
                                             >
                                                 {c.name}
                                             </Link>

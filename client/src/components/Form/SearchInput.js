@@ -5,6 +5,7 @@ import { useSearch } from '../../context/search';
 const SearchInput = () => {
     const [values, setValues] = useSearch();
     const navigate = useNavigate();
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
