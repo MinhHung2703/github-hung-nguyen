@@ -67,8 +67,9 @@ const getProductController = async (req, res) => {
 
 const getSingleProductController = async (req, res) => {
     try {
+        console.log(req.params.slug);
         const product = await productModel
-            .findOne({ slug: req.params.slug })
+            .findById(req.params.slug)
             .select("-photo")
             .populate("category")
         res.status(200).send({
@@ -231,10 +232,11 @@ const productListController = async (req, res) => {
 const searchProductController = async (req, res) => {
     try {
         const { keyword } = req.params;
+        console.log(keyword)
         const results = await productModel.find({
             $or: [
                 { name: { $regex: keyword, $options: "i" } },
-                { description: { $regex: keyword, $options: "i " } }
+                { description: { $regex: keyword, $options: "i" } }
             ],
         })
             .select("-photo")

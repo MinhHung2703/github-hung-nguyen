@@ -27,7 +27,7 @@ router.post(
 );
 //routes
 router.put(
-    "/update-product/:pid",
+    "/update-product/:id",
     requireSignIn,
     isAdmin,
     formidable(),

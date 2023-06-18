@@ -30,7 +30,7 @@ const UpdateProduct = () => {
             setId(data.product._id);
             setDescription(data.product.description);
             setPrice(data.product.price);
-            setPrice(data.product.price);
+            setPhoto(data.product.photo);
             setQuantity(data.product.quantity);
             setShipping(data.product.shipping);
             setCategory(data.product.category._id);
@@ -51,7 +51,7 @@ const UpdateProduct = () => {
             }
         } catch (error) {
             console.log(error);
-            toast.error("Something wwent wrong in getting catgeory");
+            toast.error("Something went wrong in getting category");
         }
     };
 
@@ -69,6 +69,7 @@ const UpdateProduct = () => {
             productData.append("price", price);
             productData.append("quantity", quantity);
             photo && productData.append("photo", photo);
+            console.log(photo)
             productData.append("category", category);
             const { data } = axios.put(
                 `http://localhost:8000/api/v1/product/update-product/${id}`,
