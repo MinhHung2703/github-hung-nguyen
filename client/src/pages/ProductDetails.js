@@ -42,13 +42,15 @@ const ProductDetails = () => {
         <Layout>
             <div className="row container product-details">
                 <div className="col-md-6">
-                    <img
-                        src={`http://localhost:8000/api/v1/product/product-photo/${product._id}`}
-                        className="card-img-top"
-                        alt={product.name}
-                        height="300"
-                        width={"350px"}
-                    />
+                    {product._id && (
+                        <img
+                            src={`http://localhost:8000/api/v1/product/product-photo/${product._id}`}
+                            className="card-img-top"
+                            alt={product.name}
+                            height="300"
+                            width={"350px"}
+                        />
+                    )}
                 </div>
                 <div className="col-md-6 product-details-info">
                     <h1 className="text-center">Product Details</h1>
@@ -100,19 +102,6 @@ const ProductDetails = () => {
                                     >
                                         More Details
                                     </button>
-                                    {/* <button
-                  className="btn btn-dark ms-1"
-                  onClick={() => {
-                    setCart([...cart, p]);
-                    localStorage.setItem(
-                      "cart",
-                      JSON.stringify([...cart, p])
-                    );
-                    toast.success("Item Added to cart");
-                  }}
-                >
-                  ADD TO CART
-                </button> */}
                                 </div>
                             </div>
                         </div>
