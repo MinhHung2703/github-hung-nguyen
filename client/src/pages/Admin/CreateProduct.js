@@ -116,7 +116,7 @@ const CreateProduct = () => {
                                 <input
                                     type="text"
                                     value={name}
-                                    placeholder="write a name"
+                                    placeholder="Name"
                                     className="form-control"
                                     onChange={(e) => setName(e.target.value)}
                                 />
@@ -125,7 +125,7 @@ const CreateProduct = () => {
                                 <textarea
                                     type="text"
                                     value={description}
-                                    placeholder="write a description"
+                                    placeholder="Description"
                                     className="form-control"
                                     onChange={(e) => setDescription(e.target.value)}
                                 />
@@ -135,7 +135,7 @@ const CreateProduct = () => {
                                 <input
                                     type="number"
                                     value={price}
-                                    placeholder="write a Price"
+                                    placeholder="Price"
                                     className="form-control"
                                     onChange={(e) => setPrice(e.target.value)}
                                 />
@@ -144,7 +144,7 @@ const CreateProduct = () => {
                                 <input
                                     type="number"
                                     value={quantity}
-                                    placeholder="write a quantity"
+                                    placeholder="Quantity"
                                     className="form-control"
                                     onChange={(e) => setQuantity(e.target.value)}
                                 />
