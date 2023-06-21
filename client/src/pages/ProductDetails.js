@@ -47,7 +47,7 @@ const ProductDetails = () => {
                             src={`http://localhost:8000/api/v1/product/product-photo/${product._id}`}
                             className="card-img-top"
                             alt={product.name}
-                            height={"365"}
+                            height={"300"}
                             width={"300"}
                         />
                     )}
