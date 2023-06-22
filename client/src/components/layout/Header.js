@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavLink, Link } from "react-router-dom";
 import toast from "react-hot-toast";
 import { useAuth } from "../../context/auth";
@@ -20,6 +20,8 @@ const Header = () => {
         localStorage.removeItem("auth");
         toast.success("Logout Successfully");
     };
+    const [userDropDown, setUserDropDown] = useState(false);
+
     return (
         <>
             <nav className="navbar navbar-expand-lg bg-body-tertiary fixed-top">
@@ -92,13 +94,16 @@ const Header = () => {
                                         <NavLink
                                             className="nav-link dropdown-toggle"
                                             to="#"
+                                            onClick={() => {
+                                                setUserDropDown(!userDropDown);
+                                            }}
                                             role="button"
                                             data-bs-toggle="dropdown"
                                             style={{ border: "none" }}
                                         >
                                             {auth?.user?.name}
                                         </NavLink>
-                                        <ul className="dropdown-menu">
+                                        <ul className="dropdown-menu dropdown" style={{ display: userDropDown ? "block" : "none" }}>
                                             <li>
                                                 <NavLink
                                                     to={`/dashboard/${auth?.user?.role === 1 ? "admin" : "user"}`}
