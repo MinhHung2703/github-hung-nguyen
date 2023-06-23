@@ -1,5 +1,11 @@
 const express = require("express");
-const { registerController, loginController, forgotPasswordController, testController } = require("../controllers/authController.js");
+const {
+    registerController,
+    loginController,
+    forgotPasswordController,
+    testController,
+    updateProfileController
+} = require("../controllers/authController.js");
 const { requireSignIn, isAdmin } = require("../middlewares/authMiddleware.js");
 //route object
 const router = express.Router()
@@ -26,5 +32,7 @@ router.get("/user-auth", requireSignIn, (req, res) => {
 router.get("/admin-auth", requireSignIn, isAdmin, (req, res) => {
     res.status(200).send({ ok: true })
 })
+
+router.put("/profile", requireSignIn, updateProfileController)
 
 module.exports = router

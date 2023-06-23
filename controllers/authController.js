@@ -156,4 +156,23 @@ const testController = async (req, res) => {
     }
 }
 
-module.exports = { registerController, loginController, testController, forgotPasswordController }
+// Update Profile User
+const updateProfileController = async (req, res) => {
+    try {
+        const { name, email, password, phone } = req.body
+    } catch (error) {
+        console.log(error);
+        res.status(400).send({
+            success: false,
+            message: "Error while update profile"
+        })
+    }
+}
+
+module.exports = {
+    registerController,
+    loginController,
+    testController,
+    forgotPasswordController,
+    updateProfileController
+}
