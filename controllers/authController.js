@@ -166,7 +166,7 @@ const updateProfileController = async (req, res) => {
             return res.json({ error: "Password is required and 6 character long" })
         }
         const hashedPassword = password ? await hashPassword(password) : undefined;
-        const updateUser = await userModel.findByIdAndUpdate(req.user._id,
+        const updatedUser = await userModel.findByIdAndUpdate(req.user._id,
             {
                 name: name || user.name,
                 password: hashedPassword || user.password,
@@ -178,7 +178,7 @@ const updateProfileController = async (req, res) => {
         res.status(200).send({
             success: true,
             message: "Profile updated successfully",
-            updateUser,
+            updatedUser,
         })
     } catch (error) {
         console.log(error);
