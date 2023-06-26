@@ -9,7 +9,6 @@ const braintree = require('braintree');
 
 const initilizeGetway = () => {
     try {
-        console.log("D", process.env.MONGO_URL);
         return new braintree.BraintreeGateway({
             environment: braintree.Environment.Sandbox,
             merchantId: process.env.BRAINTREE_MERCHANT_ID,
