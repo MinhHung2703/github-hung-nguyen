@@ -21,6 +21,7 @@
   "homepage": "https://github.com/minhhung2703/Watch_ecommerce_Nodejs#readme",
   "dependencies": {
     "bcrypt": "^5.1.0",
+    "braintree": "^3.16.0",
     "colors": "^1.4.0",
     "concurrently": "^8.0.1",
     "cors": "^2.8.5",
