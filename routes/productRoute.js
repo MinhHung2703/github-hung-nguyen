@@ -61,7 +61,7 @@ router.get("/product-list/:page", productListController)
 router.get("/search/:keyword", searchProductController)
 
 // similar product
-router.get('/related-product/:pid/:cid', realtedProduceController)
+router.get("/related-product/:pid/:cid", realtedProduceController)
 
 //payments route
 //token

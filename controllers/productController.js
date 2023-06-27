@@ -2,8 +2,8 @@ const slugify = require("slugify");
 const productModel = require("../models/productModel.js");
 const categoryModel = require("../models/categoryModel.js")
 const orderModel = require("../models/orderModel.js")
-const fs = require('fs')
-const braintree = require('braintree');
+const fs = require("fs")
+const braintree = require("braintree");
 
 //payment gateway
 
@@ -271,10 +271,16 @@ const searchProductController = async (req, res) => {
 const realtedProduceController = async (req, res) => {
     try {
         const { pid, cid } = req.params;
-        const products = await productModel.find({
-            category: cid,
-            _id: { $ne: pid }
-        }).select("-photo").limit(3).populate("category")
+        const products = await productModel
+            .find(
+                {
+                    category: cid,
+                    _id: { $ne: pid }
+                }
+            )
+            .select("-photo")
+            .limit(3)
+            .populate("category")
         res.status(200).send({
             success: true,
             products,
@@ -283,7 +289,7 @@ const realtedProduceController = async (req, res) => {
         console.log(error);
         res.status(400).send({
             success: false,
-            message: 'Error while getting related product',
+            message: "Error while getting related product",
             error
         })
     }

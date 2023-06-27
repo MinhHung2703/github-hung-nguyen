@@ -1,12 +1,12 @@
 const epxpress = require("express");
 const colors = require("colors")
-const dotenv = require('dotenv')
+const dotenv = require("dotenv")
 const morgan = require("morgan");
 const connectDB = require("./config/db.js");
 const authRoutes = require("./routes/authRoute.js")
 const categoryRoutes = require("./routes/categoryRoute.js")
 const productRoutes = require("./routes/productRoute.js")
-const cors = require('cors')
+const cors = require("cors")
 //configure dotenv
 dotenv.config();
 

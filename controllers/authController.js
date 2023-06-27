@@ -41,14 +41,14 @@ const registerController = async (req, res) => {
         const user = await new userModel({ name, email, phone, address, password: hashedPassword, answer }).save();
         res.status(201).send({
             success: true,
-            message: 'User Register Successfully',
+            message: "User Register Successfully",
             user,
         });
     } catch (error) {
         console.log(error);
         res.status(500).send({
             success: false,
-            message: 'Error in Registeration',
+            message: "Error in Registeration",
             error
         });
     }
@@ -139,7 +139,7 @@ const forgotPasswordController = async (req, res) => {
         console.log(error);
         res.status(500).send({
             success: false,
-            message: 'Something went wrong',
+            message: "Something went wrong",
             error
         });
     }
