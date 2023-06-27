@@ -13,7 +13,7 @@ const CartPage = () => {
     const [auth, setAuth] = useAuth();
     const [cart, setCart] = useCart();
     const [clientToken, setClientToken] = useState("");
-    const [instance, setInstance] = useState("");
+    const [instance, setInstance] = useState();
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
@@ -43,11 +43,13 @@ const CartPage = () => {
             console.log(error)
         }
     }
+    console.log(clientToken);
+    console.log(auth?.token);
 
     // get payment gateway token
     const getToken = async () => {
         try {
-            const { data } = axios.get("http://localhost:8000/api/v1/product/braintree/token")
+            const { data } = await axios.get("http://localhost:8000/api/v1/product/braintree/token")
             setClientToken(data?.clientToken)
         } catch (error) {
             console.log(error)
@@ -57,25 +59,25 @@ const CartPage = () => {
         getToken()
     }, [auth?.token]);
 
+    //handle payments
     const handlePayment = async () => {
         try {
             setLoading(true);
             const { nonce } = await instance.requestPaymentMethod();
             const { data } = await axios.post("http://localhost:8000/api/v1/product/braintree/payment", {
                 nonce,
-                cart,
-            })
+                cart
+            });
             setLoading(false);
             localStorage.removeItem("cart");
             setCart([]);
             navigate("/dashboard/user/orders");
             toast.success("Payment Completed Successfully")
         } catch (error) {
-            setLoading(false);
             console.log(error);
+            setLoading(false);
         }
-    }
-
+    };
     return (
         <Layout>
             <div className="container">
@@ -131,7 +133,7 @@ const CartPage = () => {
                         {auth?.user?.address ? (
                             <>
                                 <div className="mb-3">
-                                    <h4>Current Address</h4>
+                                    <h4>Current Address:</h4>
                                     <h5>{auth?.user?.address}</h5>
                                     <button
                                         className="btn btn-outline-warning"
@@ -144,7 +146,8 @@ const CartPage = () => {
                         ) : (
                             <div className="mb-3">
                                 {auth?.token ? (
-                                    <button className="btn btn-outline-warning"
+                                    <button
+                                        className="btn btn-outline-warning"
                                         onClick={() => navigate("/dashboard/user/profile")}
                                     >
                                         Update Address
@@ -152,12 +155,13 @@ const CartPage = () => {
                                 ) : (
                                     <button
                                         className="btn btn-outline-warning"
-                                        onClick={() => navigate("/login", {
-                                            state: "/cart",
-                                        })
+                                        onClick={() =>
+                                            navigate("/login", {
+                                                state: "/cart",
+                                            })
                                         }
                                     >
-                                        Please Login to Checkout
+                                        Please Login to checkout
                                     </button>
                                 )}
                             </div>
@@ -176,9 +180,14 @@ const CartPage = () => {
                                         }}
                                         onInstance={(instance) => setInstance(instance)}
                                     />
-                                    <button className="btn btn-primary"
+
+                                    <button
+                                        className="btn btn-primary"
                                         onClick={handlePayment}
-                                    ></button>
+                                        disabled={loading || !instance || !auth?.user?.address}
+                                    >
+                                        {loading ? "Processing ...." : "Make Payment"}
+                                    </button>
                                 </>
                             )}
                         </div>
