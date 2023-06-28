@@ -4,7 +4,9 @@ const {
     loginController,
     forgotPasswordController,
     testController,
-    updateProfileController
+    updateProfileController,
+    getOrderController,
+    getAllOrdersController
 } = require("../controllers/authController.js");
 const { requireSignIn, isAdmin } = require("../middlewares/authMiddleware.js");
 //route object
@@ -33,6 +35,13 @@ router.get("/admin-auth", requireSignIn, isAdmin, (req, res) => {
     res.status(200).send({ ok: true })
 })
 
+// update profile
 router.put("/profile", requireSignIn, updateProfileController)
+
+// orders
+router.get("/orders", requireSignIn, getOrderController)
+
+// all orders
+router.get("/all-orders", requireSignIn, isAdmin, getAllOrdersController)
 
 module.exports = router

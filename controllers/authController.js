@@ -1,6 +1,7 @@
 const userModel = require("../models/userModel.js");
 const { hashPassword, comparedPassword } = require("../helpers/authHelper.js");
 const jwt = require("jsonwebtoken");
+const orderModel = require("../models/orderModel.js");
 
 const registerController = async (req, res) => {
     try {
@@ -189,10 +190,47 @@ const updateProfileController = async (req, res) => {
     }
 }
 
+// Orders
+const getOrderController = async (req, res) => {
+    try {
+        const orders = await orderModel
+            .find({ buyer: req.user._id })
+            .populate("products", "-photo")
+            .populate("buyer", "name");
+        res.json(orders);
+        console.log(orders);
+    } catch (error) {
+        console.log(error)
+        res.status(500).send({
+            success: false,
+            message: "Error while getting orders"
+        })
+    }
+}
+
+const getAllOrdersController = async (req, res) => {
+    try {
+        const orders = await orderModel
+            .find({})
+            .populate("products", "-photo")
+            .populate("buyer", "name")
+            .sort({ createdAt: "-1" })
+        res.json(orders)
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({
+            success: false,
+            message: "Error While getting all order"
+        })
+    }
+}
+
 module.exports = {
     registerController,
     loginController,
     testController,
     forgotPasswordController,
-    updateProfileController
+    updateProfileController,
+    getOrderController,
+    getAllOrdersController
 }
