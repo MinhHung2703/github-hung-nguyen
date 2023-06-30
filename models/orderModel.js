@@ -16,9 +16,9 @@ const orderSchema = new mongoose.Schema(
         status: {
             type: String,
             default: "Not Process",
-            enum: ["Not Process", "Processing", "Shipped", "Delivered"]
+            enum: ["Not Process", "Processing", "Shipped", "Delivered", "Cancel"]
         },
     },
     { timestamps: true }
-)
+);
 module.exports = mongoose.model("Order", orderSchema);

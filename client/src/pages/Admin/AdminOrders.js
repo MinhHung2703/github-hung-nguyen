@@ -1,4 +1,4 @@
-import Raect, { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import AdminMenu from "../../components/Layout/AdminMenu.js";
 import Layout from "../../components/Layout/Layout.js";
 import toast from "react-hot-toast";
@@ -10,11 +10,11 @@ const { Option } = Select;
 
 const AdminOrders = () => {
     const [status, setStatus] = useState([
-        'Not Process',
-        'Processing',
-        'Shipped',
-        'Delivered',
-        'Cancel'
+        "Not Process",
+        "Processing",
+        "Shipped",
+        "Delivered",
+        "Cancel"
     ]);
     const [changeStatus, setChangeStatus] = useState("")
     const [auth, setAuth] = useAuth();
@@ -23,13 +23,27 @@ const AdminOrders = () => {
         try {
             const { data } = await axios.get("http://localhost:8000/api/v1/auth/all-orders")
             setOrders(data);
+            console.log(data);
         } catch (error) {
             console.log(error)
         }
     }
+
     useEffect(() => {
         if (!auth?.token) getOrders();
-    }, [auth?.token])
+    }, [auth?.token]);
+
+    const handleChange = async (orderId, value) => {
+        try {
+            const { data } = await axios.put(`http://localhost:8000/api/v1/auth/order-status/${orderId}`, {
+                status: value,
+            });
+            getOrders();
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     return (
         <Layout title={"All Orders Data"}>
             <div className="row dashboard m-5 p-5">
@@ -58,7 +72,7 @@ const AdminOrders = () => {
                                             <td>
                                                 <Select
                                                     bordered={false}
-                                                    // onChange={(value) => handleChange(o._id, value)}
+                                                    onChange={(value) => handleChange(o._id, value)}
                                                     defaultValue={o?.status}
                                                 >
                                                     {status.map((s, i) => (
