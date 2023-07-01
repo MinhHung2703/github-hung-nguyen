@@ -32,7 +32,7 @@ router.put(
     "/update-product/:id",
     requireSignIn,
     isAdmin,
-    formidable(),
+    // formidable(),
     updateProductController
 );
 

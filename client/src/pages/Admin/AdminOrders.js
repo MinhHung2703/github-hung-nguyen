@@ -21,6 +21,8 @@ const AdminOrders = () => {
     const [orders, setOrders] = useState([]);
     const getOrders = async () => {
         try {
+            console.log(auth?.token);
+
             const { data } = await axios.get("http://localhost:8000/api/v1/auth/all-orders")
             setOrders(data);
         } catch (error) {
@@ -28,7 +30,9 @@ const AdminOrders = () => {
         }
     }
     useEffect(() => {
-        if (!auth?.token) getOrders();
+        console.log(auth?.token);
+
+        if (auth?.token) getOrders();
     }, [auth?.token])
     return (
         <Layout title={"All Orders Data"}>
