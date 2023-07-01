@@ -7,6 +7,8 @@ import { Select } from "antd";
 import { useNavigate, useParams } from "react-router-dom";
 const { Option } = Select;
 
+const DEFAULT_AVATAR_URL = "https://img.freepik.com/free-vector/skincare-spa-products-set-beauty-skin-hair-vector-illustrations-cosmetic-jars-tubes-bottles-cartoon-lotion-cream-cleanser-leaves-isolated-white-organic-bodycare-concept_74855-21294.jpg?w=2000";
+
 const UpdateProduct = () => {
     const navigate = useNavigate();
     const params = useParams();
@@ -142,25 +144,14 @@ const UpdateProduct = () => {
                                 </label>
                             </div>
                             <div className="mb-3">
-                                {photo ? (
-                                    <div className="text-center">
-                                        <img
-                                            src={URL.createObjectURL(photo)}
-                                            alt="product_photo"
-                                            height={"200px"}
-                                            className="img img-responsive"
-                                        />
-                                    </div>
-                                ) : (
-                                    <div className="text-center">
-                                        <img
-                                            src={`http://localhost:8000/api/v1/product/product-photo/${id}`}
-                                            alt="product_photo"
-                                            height={"200px"}
-                                            className="img img-responsive"
-                                        />
-                                    </div>
-                                )}
+                                <div className="text-center">
+                                    <img
+                                        src={id ? `http://localhost:8000/api/v1/product/product-photo/${id}` : DEFAULT_AVATAR_URL}
+                                        alt="product_photo"
+                                        height={"200px"}
+                                        className="img img-responsive"
+                                    />
+                                </div>
                             </div>
                             <div className="mb-3">
                                 <input
