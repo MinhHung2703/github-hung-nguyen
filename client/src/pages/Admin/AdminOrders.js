@@ -30,7 +30,7 @@ const AdminOrders = () => {
     }
 
     useEffect(() => {
-        if (!auth?.token) getOrders();
+        if (auth?.token) getOrders();
     }, [auth?.token]);
 
     const handleChange = async (orderId, value) => {
@@ -95,7 +95,6 @@ const AdminOrders = () => {
                                             <div className="col-md-4">
                                                 <img
                                                     src={`http://localhost:8000/api/v1/product/product-photo/${p._id}`}
-                                                    className="card-img-top"
                                                     alt={p.name}
                                                     width="100px"
                                                     height={"100px"}

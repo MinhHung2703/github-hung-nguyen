@@ -29,7 +29,7 @@ router.post(
 );
 //routes
 router.put(
-    "/update-product/:id",
+    "/update-product/:pid",
     requireSignIn,
     isAdmin,
     formidable(),

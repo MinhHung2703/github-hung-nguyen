@@ -198,7 +198,6 @@ const getOrderController = async (req, res) => {
             .populate("products", "-photo")
             .populate("buyer", "name");
         res.json(orders);
-        console.log(orders);
     } catch (error) {
         console.log(error)
         res.status(500).send({

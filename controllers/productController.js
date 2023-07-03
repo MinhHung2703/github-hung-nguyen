@@ -84,7 +84,6 @@ const getProductController = async (req, res) => {
 
 const getSingleProductController = async (req, res) => {
     try {
-        console.log(req.params.slug);
         const product = await productModel
             .findById(req.params.slug)
             .select("-photo")
@@ -153,7 +152,7 @@ const updateProductController = async (req, res) => {
                 return res.status(500).send({ error: "Category is Required" });
             case !quantity:
                 return res.status(500).send({ error: "quantity is Required" });
-            case !photo && photo.size > 1000000:
+            case photo && photo.size > 1000000:
                 return res.status(500).send({ error: "Photo is Required and should be less then 1mb" });
         }
 
@@ -257,7 +256,8 @@ const searchProductController = async (req, res) => {
             ],
         })
             .select("-photo")
-        res.json(results);
+        res.send(results)
+        // res.json(results);
     } catch (error) {
         console.log(error);
         res.status(500).send({
@@ -331,7 +331,8 @@ const brainTreePaymentController = async (req, res) => {
                         payment: result,
                         buyer: req.user._id
                     }).save();
-                    res.json({ ok: true })
+                    res.status(200).send({ ok: true })
+                    // res.json({ ok: true })
                 } else {
                     res.status(500).send(error)
                 }
