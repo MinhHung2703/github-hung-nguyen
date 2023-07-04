@@ -174,6 +174,7 @@ const updateProductController = async (req, res) => {
         console.log(error);
         res.status(500).send({
             success: false,
+            error,
             message: "Error in update product"
         })
     }
